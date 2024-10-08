@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class TopicFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            // 帖子工厂
+            'user_id' => User::inRandomOrder()->first(), // 随机取一个用户
+            'title' => fake()->sentence(20),
+            'content' => fake()->sentence(20)
         ];
     }
 }
