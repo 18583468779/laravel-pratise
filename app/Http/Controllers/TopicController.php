@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Topic;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
+use App\Http\Resources\TopicResource;
 
 class TopicController extends Controller
 {
@@ -13,7 +14,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        //返回所有数据
+        return TopicResource::collection(Topic::paginate(10)); // 返回10条帖子
     }
 
     /**
