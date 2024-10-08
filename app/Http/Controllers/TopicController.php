@@ -6,6 +6,7 @@ use App\Models\Topic;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResource;
+use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
@@ -19,19 +20,19 @@ class TopicController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     *  新增帖子
+     *
      */
     public function store(StoreTopicRequest $request)
     {
         //
+        // return Auth::user(); // 返回当前用户
+        $topic = new Topic(); // 实例化模型
+        $topic->title = $request->input('title');
+        $topic->user_id = Auth::id(); // user_id 必须是当前用户
+        $topic->content = $request->input('content');
+        $topic->save();
+        return $topic;
     }
 
     /**
@@ -42,13 +43,6 @@ class TopicController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Topic $topic)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

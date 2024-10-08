@@ -7,11 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreTopicRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * 请求的表单验证，用户身份
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
