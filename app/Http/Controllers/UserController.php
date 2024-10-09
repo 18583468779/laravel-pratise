@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +44,17 @@ class UserController extends Controller
         Auth::login($user);
         return ['code' => 0, 'msg' => '恭喜你，登录成功', 'data' => $user];
     }
-    public function register() {}
-    public function logout() {}
+    public function register(RegisterRequest $registerRequest, User $user)
+    {
+        // 用户注册
+        $user->name = $registerRequest->input('name');
+        $user->password = Hash::make($registerRequest->input('password'));
+        $user->save();
+        return ['code' => 0, 'msg' => '恭喜你，注册成功', 'data' => $user];
+    }
+    public function logout()
+    {
+        Auth::logout(); // 退出登录
+        return ['code' => 0, 'msg' => '退出登录成功'];
+    }
 }
